@@ -14,10 +14,7 @@ export default function FeatureRow({ id, title, description, restaurants }) {
     <View>
       <View className="flex-row justify-between items-center px-4">
         <TouchableOpacity>
-          <Text
-            style={{ color: themeColors.text }}
-            className="font-semibold"
-          >
+          <Text style={{ color: themeColors.text }} className="font-semibold">
             ټوله ووینئ
           </Text>
         </TouchableOpacity>
@@ -43,13 +40,13 @@ export default function FeatureRow({ id, title, description, restaurants }) {
               id={restaurant._id}
               imgUrl={restaurant.image}
               title={restaurant.name}
-              rating={restaurant.rating}
+              // rating={restaurant.rating}
               type={restaurant.type?.name}
-              address="123 main street"
+              // address="123 main street"
               description={restaurant.description}
               dishes={restaurant.dishes}
-              lng={restaurant.lng}
-              lat={restaurant.lat}
+              // lng={restaurant.lng}
+              // lat={restaurant.lat}
             />
           );
         })}

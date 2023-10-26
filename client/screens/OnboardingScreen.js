@@ -18,15 +18,12 @@ export default function OnboardingScreen() {
 
   const handleDone = () => {
     navigation.navigate("Home");
-    // setItem("onboarded", "1");
+    setItem("onboarded", "1");
   };
 
   const doneButton = ({ ...props }) => {
     return (
-      <TouchableOpacity
-        style={styles.doneButton}
-        {...props}
-      >
+      <TouchableOpacity style={styles.doneButton} {...props}>
         <Text>Done</Text>
       </TouchableOpacity>
     );

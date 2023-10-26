@@ -18,7 +18,7 @@ export default function PreparingOrderScreen() {
       <Lottie
         source={require("../assets/animations/delivery.json")}
         autoPlay
-        loop
+        // loop
       />
     </View>
   );

@@ -1,41 +1,30 @@
 {
   "expo": {
-    "name": "Restaurant",
-    "slug": "Restaurant",
+    "name": "Elyas Restaurant",
+    "slug": "restaurant",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/a745a6de-5bb0-44af-ac33-882006c07fda"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
+    "extra": {
+      "eas": {
+        "projectId": "4259c78e-4037-4a09-bfe8-4d268afe8717"
+      }
+    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.michael742.Restaurant"
+      "package": "com.michael742.restaurant"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "a745a6de-5bb0-44af-ac33-882006c07fda"
-      }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
     }
   }
 }

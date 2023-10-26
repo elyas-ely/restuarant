@@ -3,15 +3,31 @@ import React, { useState, useEffect } from "react";
 import { getCategories } from "../api";
 import { urlFor } from "../sanity";
 import { themeColors } from "../theme";
+import { setItem } from "../utils/categoriesStorage";
+import { getItem } from "../utils/categoriesStorage";
 
 export default function Categories() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [categories, setCategories] = useState([]);
+
+  // useEffect(() => {
+  //   getCategories().then((data) => {
+  //     // console.log("got data", data[0]);
+  //     setCategories(data);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    getCategories().then((data) => {
-      // console.log("got data", data[0]);
-      setCategories(data);
-    });
+    if (categories.length != 0) {
+      // console.log("data is ", featuredCategories);
+      getItem();
+    } else {
+      getCategories().then((data) => {
+        setCategories(data);
+        console.log(data);
+        setItem(categories);
+      });
+    }
   }, []);
 
   return (

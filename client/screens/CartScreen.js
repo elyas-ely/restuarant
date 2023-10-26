@@ -50,10 +50,7 @@ export default function BasketScreen() {
           onPress={navigation.goBack}
           className="absolute z-10 rounded-full p-1 shadow top-5 left-2"
         >
-          <Icon.ArrowLeft
-            strokeWidth={3}
-            stroke="white"
-          />
+          <Icon.ArrowLeft strokeWidth={3} stroke="white" />
         </TouchableOpacity>
         <View>
           <Text className="text-center font-bold text-xl">ستاسو خوراکونه</Text>
@@ -110,10 +107,7 @@ export default function BasketScreen() {
                 className="h-14 w-14 rounded-full"
                 source={{ uri: urlFor(items[0]?.image).url() }}
               />
-              <Text
-                style={{ color: themeColors.text }}
-                className="font-bold"
-              >
+              <Text style={{ color: themeColors.text }} className="font-bold">
                 {items.length} x{" "}
               </Text>
               <TouchableOpacity
@@ -171,6 +165,7 @@ export default function BasketScreen() {
           <TouchableOpacity
             style={{ backgroundColor: themeColors.bgColor(1) }}
             onPress={() => navigation.navigate("PreparingOrder")}
+            // onPress={() => navigation.navigate("Delivery")}
             className="p-3 rounded-full"
           >
             <Text className="text-white text-center font-bold text-lg">

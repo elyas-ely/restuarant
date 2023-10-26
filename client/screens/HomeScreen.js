@@ -19,6 +19,8 @@ import { themeColors } from "../theme";
 import BasketIcon from ".././components/basketIcon";
 import { selectBasketItems } from "../slices/basketSlice";
 import { useSelector } from "react-redux";
+import { setItem } from "../utils/restaurantStorage";
+import { getItem } from "../utils/restaurantStorage";
 
 export default function HomeScreen() {
   const basketItems = useSelector(selectBasketItems);
@@ -28,11 +30,18 @@ export default function HomeScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
+
   useEffect(() => {
-    getFeaturedRestaurants().then((data) => {
-      // console.log("data", data[1].restaurants);
-      setFeaturedCategories(data);
-    });
+    if (featuredCategories.length != 0) {
+      // console.log("data is ", featuredCategories);
+      getItem();
+    } else {
+      getFeaturedRestaurants().then((data) => {
+        setFeaturedCategories(data);
+        // console.log(data);
+        setItem(featuredCategories);
+      });
+    }
   }, []);
 
   const cartHandler = () => {
@@ -54,6 +63,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             className=" mr-3 rounded-full relative "
             onPress={() => cartHandler()}
+            // onPress={getItem}
           >
             <Icon.ShoppingCart
               height={40}
@@ -80,11 +90,7 @@ export default function HomeScreen() {
           <View className="flex-row flex-1 items-center p-3 rounded-full border border-gray-300">
             <View className="flex-row items-center space-x-1 border-0 border-r-2 pr-2 border-r-gray-300">
               <Text className="text-gray-600">کندهار</Text>
-              <Icon.MapPin
-                height="20"
-                width="20"
-                stroke="gray"
-              />
+              <Icon.MapPin height="20" width="20" stroke="gray" />
             </View>
             <TextInput
               placeholder="خواړه"
@@ -93,11 +99,7 @@ export default function HomeScreen() {
               onChangeText={(text) => textInputHandler(text)}
               // onChangeText={(text) => console.log(text)}
             />
-            <Icon.Search
-              height="25"
-              width="25"
-              stroke="gray"
-            />
+            <Icon.Search height="25" width="25" stroke="gray" />
           </View>
         </View>
 
