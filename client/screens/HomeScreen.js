@@ -19,29 +19,42 @@ import { themeColors } from "../theme";
 import BasketIcon from ".././components/basketIcon";
 import { selectBasketItems } from "../slices/basketSlice";
 import { useSelector } from "react-redux";
-import { setItem } from "../utils/restaurantStorage";
-import { getItem } from "../utils/restaurantStorage";
+import { storeData } from "../utils/restaurantStorage";
+import { getData } from "../utils/restaurantStorage";
+import { removeData } from "../utils/restaurantStorage";
 
 export default function HomeScreen() {
+  // console.log(getFeaturedRestaurants());
   const basketItems = useSelector(selectBasketItems);
 
-  const [featuredCategories, setFeaturedCategories] = useState([]);
   const navigation = useNavigation();
+
+  const [featuredCategories, setFeaturedCategories] = useState([]);
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
 
   useEffect(() => {
-    if (featuredCategories.length != 0) {
-      // console.log("data is ", featuredCategories);
-      getItem();
-    } else {
-      getFeaturedRestaurants().then((data) => {
-        setFeaturedCategories(data);
-        // console.log(data);
-        setItem(featuredCategories);
-      });
-    }
+    const fetchData = async () => {
+      const storedData = await getData("featuredCategories");
+      console.warn("got data for restaurants");
+      if (storedData) {
+        // Data is already available, use it
+        setFeaturedCategories(storedData);
+      } else {
+        // Data is not available, fetch and store it
+        console.error("Data is not availible for restaurants");
+        try {
+          const fetchedData = await getFeaturedRestaurants();
+          setFeaturedCategories(fetchedData);
+          storeData("featuredCategories", fetchedData);
+        } catch (error) {
+          console.error("Error fetching and storing data for restaurants:");
+        }
+      }
+    };
+
+    fetchData();
   }, []);
 
   const cartHandler = () => {
@@ -50,6 +63,13 @@ export default function HomeScreen() {
     }
   };
 
+  // const allRestaurants = featuredCategories[0];
+  // console.warn(allRestaurants);
+
+  // const removeDat = () => {
+  //   return removeData("featuredCategories");
+  // };
+  // removeDat();
   return (
     <>
       {/* <BasketIcon /> */}
@@ -96,7 +116,7 @@ export default function HomeScreen() {
               placeholder="خواړه"
               className="mr-2 flex-1"
               keyboardType="default"
-              onChangeText={(text) => textInputHandler(text)}
+              // onChangeText={(text) => textInputHandler(text)}
               // onChangeText={(text) => console.log(text)}
             />
             <Icon.Search height="25" width="25" stroke="gray" />

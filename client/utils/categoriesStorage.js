@@ -1,28 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const setItem = async (value) => {
+export const storingData = async (key, value) => {
   try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem("key", value);
-  } catch (e) {
-    console.warn("Error storing value:", e);
-  }
-  console.warn("data stored");
-};
-
-export const getItem = async () => {
-  try {
-    const data = await AsyncStorage.getItem("key");
-  } catch (e) {
-    console.warn("Error retrieving value: ");
-  }
-  //   console.warn(data);
-};
-
-export const removeItem = async () => {
-  try {
-    await AsyncStorage.multiRemove("key");
+    const stringValue = JSON.stringify(value);
+    await AsyncStorage.setItem(key, stringValue);
   } catch (error) {
-    console.warn("Error deleting value: ", error);
+    console.error("categoriAsyncStorage: Error storing data:", error);
+  }
+};
+
+export const gettingData = async (key) => {
+  try {
+    const stringValue = await AsyncStorage.getItem(key);
+    return stringValue !== null ? JSON.parse(stringValue) : null;
+  } catch (error) {
+    console.error("categoriAsyncStorage: Error getting data");
   }
 };

@@ -3,31 +3,34 @@ import React, { useState, useEffect } from "react";
 import { getCategories } from "../api";
 import { urlFor } from "../sanity";
 import { themeColors } from "../theme";
-import { setItem } from "../utils/categoriesStorage";
-import { getItem } from "../utils/categoriesStorage";
+import { storingData } from "../utils/categoriesStorage";
+import { gettingData } from "../utils/categoriesStorage";
 
 export default function Categories() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   getCategories().then((data) => {
-  //     // console.log("got data", data[0]);
-  //     setCategories(data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    if (categories.length != 0) {
-      // console.log("data is ", featuredCategories);
-      getItem();
-    } else {
-      getCategories().then((data) => {
-        setCategories(data);
-        console.log(data);
-        setItem(categories);
-      });
-    }
+    const fetchData = async () => {
+      const storedData = await gettingData("categories");
+      console.warn("got data for categories");
+      if (storedData) {
+        // Data is already available, use it
+        setCategories(storedData);
+      } else {
+        // Data is not available, fetch and store it
+        console.error("ohh!, Data is not fetched");
+        try {
+          const fetchedData = await getCategories();
+          setCategories(fetchedData);
+          storingData("categories", fetchedData);
+        } catch (error) {
+          console.error("Error fetching and storing data:", error);
+        }
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

@@ -35,8 +35,8 @@ export default function Navigation() {
   if (showOnboarding) {
     return (
       <NavigationContainer>
-        {/* <Stack.Navigator initialRouteName="Onboarding"> */}
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Onboarding">
+          {/* <Stack.Navigator initialRouteName="Home"> */}
           <Stack.Screen
             name="Onboarding"
             options={{ headerShown: false }}

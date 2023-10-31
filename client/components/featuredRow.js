@@ -7,6 +7,7 @@ import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
 
 export default function FeatureRow({ id, title, description, restaurants }) {
+  // console.log(restaurants[0]);
   // const textInputHandler = (text) => {
   //   restaurants.filter((restaurant) => restaurant.name.includes(text));
   // };
